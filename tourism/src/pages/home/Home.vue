@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<home-header :city="city"></home-header>
+		<home-header></home-header>
 		<home-swiper :list="swiperList"></home-swiper>
 		<home-icons :list="iconList"></home-icons>
 		<home-recommend :list="recommendList"></home-recommend>
@@ -25,7 +25,7 @@
 		},
 		data () {
 			return {
-				  city:"上海",
+				  lastCity:"",
 				  lastCity: '',
 				  swiperList: [],
 				  iconList: [],
@@ -33,11 +33,16 @@
 				  weekendList: []
 			}
 		},
+		computed: {
+			city() {
+				return this.$store.state.city
+			}
+		},
 		methods:{
 			//如果要请求本地的静态数据 json文件必须放到static文件夹下
 			getHomeInfo () {
 				//在config index.js做转发 当访问呢api的时候会转发到static/mock文件下
-				axios.get('/static/mock/index.json')
+				axios.get('/static/mock/index.json?city='+this.city)
 				.then(this.getHomeInfoSucc)
 			},
 			getHomeInfoSucc (res) {
@@ -53,7 +58,17 @@
 			}
 		},
 		mounted () {
+			this.lastCity = this.city;
 			this.getHomeInfo();
+		},
+		activated () {
+				//当页面重新显示的时候会执行activited 不会在执行mounted
+				//此方法可以解决在添加keep-alive的情况下 没有请求数据的问题
+				//判断上次的城市是否和这次的城市相同，如果相同就不在请求
+				if (this.lastCity !== this.city) {
+					this.lastCity = this.city
+					this.getHomeInfo();
+				}
 		}
 	}
 </script>

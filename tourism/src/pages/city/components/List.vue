@@ -5,7 +5,7 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wrapper">
-            <div class="button">{{this.$store.state.city}}</div>
+            <div class="button">{{this.city}}</div>
           </div>
         </div>
       </div>
@@ -53,7 +53,12 @@ export default {
     cities: Object,
 		letter:String
   },
-	
+	//把vuex的数据写到computed里面
+	computed: {
+		city() {
+			return this.$store.state.city
+		}
+	},
 	methods:{
 		handleCityClick(city){
 			this.$store.commit("changeCity",city);
