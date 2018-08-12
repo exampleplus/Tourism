@@ -22,6 +22,9 @@ export default new Router({
 			path:"/detail/:id",
 			name:"Detail",
 			component:Detail
+		}],
+		//每进入到一个路由页面 都会回到 0 0 位置
+		scrollBehavior (to, from, savedPosition) {
+			return { x: 0, y: 0 }
 		}
-  ]
 })
