@@ -2,12 +2,12 @@
  <div>
     <div class="title">热销推荐</div>
     <ul>
-      <li
+      <router-link tag="li"
         class="item border-bottom"
 				:id="item.id"
         v-for="item of list"
         :key="item.id"
-				@click="gotoDetail(item.id)"
+				:to="'/detail/' + item.id"
       >
         <img class="item-img" :src="item.imgUrl" />
         <div class="item-info">
@@ -15,7 +15,7 @@
           <p class="item-desc">{{item.desc}}</p>
           <button class="item-button">查看详情</button>
         </div>
-      </li>
+      </router-link>
     </ul>
   </div>
 </template>
@@ -29,10 +29,7 @@ export default {
 		}
 	},
 	methods:{
-		gotoDetail(id){
-			console.log(id)
-			this.$router.push({path:'recommendDetail?id='+id})
-		}
+	
 	}
 }
 </script>

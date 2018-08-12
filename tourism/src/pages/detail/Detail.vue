@@ -1,18 +1,27 @@
 <template>
-	<div>
-		推荐项目详情页
-		{{id}}
-	</div>
+  <div>
+    <detail-banner></detail-banner>
+  </div>
 </template>
+
 <script>
-	export default {
-		data () {
-			return {
-				id:this.$route.query.id
-			}
-		}
-	}
+import DetailBanner from './components/Banner'
+import axios from 'axios'
+export default {
+  name: 'Detail',
+  components: {
+    DetailBanner
+  },
+  data () {
+    return {
+    
+    }
+  }
+
+}
 </script>
-<style>
-	
+
+<style lang="stylus" scoped>
+  .content
+    height: 50rem
 </style>
